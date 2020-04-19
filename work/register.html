@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>注册页面</title>
+    <link
+      rel="stylesheet"
+      href="./chajian/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .container {
+        margin: 100px auto;
+      }
+      .row div {
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="input-group col-md-3 col-xs-10 col-sm-6">
+          <span class="input-group-addon" id="basic-addon1">用户名</span>
+          <input
+            type="text"
+            class="form-control uname"
+            placeholder="请输入用户名"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <div class="input-group col-md-3 col-xs-10 col-sm-6">
+          <span class="input-group-addon" id="basic-addon1"
+            >密&nbsp;&nbsp;&nbsp;码</span
+          >
+          <input
+            type="password"
+            class="form-control upass"
+            placeholder="请输入密码"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <div
+          class="btn-group col-md-3 col-xs-10 col-sm-6"
+          role="group"
+          aria-label="..."
+        >
+          <button type="button" class="btn btn-default">注册</button>
+          <span style="margin-left: 20px;" class="t1"></span>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./chajian/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./chajian/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script>
+    $(function () {
+      $(".btn").click(() => {
+        var uname = $(".uname").val();
+        var upass = $(".upass").val();
+        $.ajax({
+          url: "http://localhost:9999/user/register",
+          type: "post",
+          data: {
+            uname,
+            upass,
+          },
+          success(res) {
+              if(res.status==200){
+                  var i=3;
+                  setInterval(()=>{
+
+                    $(".t1").text(`${i}秒后跳转`);
+                    i--;
+                    if(i==0){
+                        location.href="login.html"
+                    }
+                  },1000)
+                  
+              }
+          },
+        });
+      });
+    });
+  </script>
+</html>
